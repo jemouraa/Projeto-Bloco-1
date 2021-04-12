@@ -9,5 +9,4 @@ public class DevJunior extends Funcionarios{
 		super("Desenvolvedor Java Jr",3000.00);
 	}
 	
-	
 }

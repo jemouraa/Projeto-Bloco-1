@@ -69,8 +69,8 @@ public abstract class Funcionarios {
 	public void ImprimirInfoBonificada() {
 		System.out.println("                                                                                       ");
 		System.out.println("*********************************BONIFICAÇÃO*******************************************");
-		System.out.println("Dados do funcionário \nNome: "+getNome()+"\nCargo: "+getCargo()+"\nData de admissão: "+getAdmissao()+
-				"\nSalário: "+getSalario()+"\nPontuação total: "+pontuacao+"\nBonificação: "+bonificacao());
+		System.out.println("Dados do funcionário \nNome: "+getNome()+"\nCargo: "+cargoBonificado()+"\nData de admissão: "+getAdmissao()+
+				"\nSalário: "+salarioBonificado()+"\nPontuação total: "+pontuacao+"\nBonificação: "+bonificacao());
 		System.out.println("                                                                                       ");
 		System.out.println("***************************************************************************************");
 	}
@@ -78,61 +78,68 @@ public abstract class Funcionarios {
 	public String bonificacao() {
 	
 		if (pontuacao>=30 && pontuacao<=33 ) {
-			String bonificacao = "Parabens! "+getNome()+" ganhou um aumento salarial de 2%, Kit Home Office e um curso de especialização";
-			this.salario = this.salario*1.02;	
+			bonificacao = "Parabens! "+getNome()+" ganhou um aumento salarial de 2%, Kit Home Office e um curso de especialização";
 		}		
 		else if (pontuacao>=34 && pontuacao<=36 ) {
 			bonificacao = "Parabens! "+getNome()+" ganhou um aumento salarial de 5%, bonificação e um curso de especialização";
-			this.salario = this.salario*1.05;	
+			
 		}
 		else if (pontuacao>=37 && pontuacao<=39 ) {
 			bonificacao = "Parabens! "+getNome()+" ganhou um aumento salarial de 7%, jantar exclusivo e uma viagem nacional";
-			this.salario = this.salario*1.05;
+				
 		}
 		else if (pontuacao==40 && getTempoTrabalhoMeses()>=6) {
 			bonificacao = "Parabens! "+getNome()+" foi promovido, ganhou um aumento salarial de 10%, jantar exclusivo e um intercambio corporativo";
-			this.salario = this.salario*1.10;
 		}
 		else if (pontuacao==40) {
 			bonificacao = "Parabens! "+getNome()+" ganhou um aumento salarial de 10%, jantar exclusivo e um intercambio corporativo";
-			this.salario = this.salario*1.10;
 		}
 		else  {
-			bonificacao = "Funcionário "+getNome()+" não atingiu a média de pontuação";
-				
+			bonificacao = "Funcionário "+getNome()+" não atingiu a média de pontuação";		
 		}
 		return bonificacao;
-		
 	}
-	/*public String SalarioBonificado() {
+	public String salarioBonificado() {
 		
-		if (pontuacao>=30 && pontuacao<=33 ) {
+		if (pontuacao>=30 && pontuacao<=33) {
 			
+			this.salario *= 1.02;
 		}		
 		else if (pontuacao>=34 && pontuacao<=36 ) {
 			
-			this.salario = this.salario*1.05;	
+			this.salario *= 1.05;	
 		}
 		else if (pontuacao>=37 && pontuacao<=39 ) {
 			
-			this.salario = this.salario*1.05;
-		}
-		else if (pontuacao==40 && getTempoTrabalhoMeses()>=6) {
-			
-			this.salario = this.salario*1.10;
+			this.salario *= 1.05;
 		}
 		else if (pontuacao==40) {
-			
-			this.salario = this.salario*1.10;
+	
+			this.salario *= 1.10;
 		}
 		else  {
-			
-				
+			this.salario = salario;				
 		}
-		return bonificacao;
-		
+		Locale localBrasil = new Locale("pt", "BR");
+		return NumberFormat.getCurrencyInstance(localBrasil).format(this.salario);	
 	}
-	*/
+	
+	public String cargoBonificado() {
+
+		if (pontuacao==40 && getTempoTrabalhoMeses()>=6) {
+			
+			if (cargo == "Desenvolvedor Java Jr") {
+				setCargo("Desenvolvedor Pleno");
+			}
+			else if (cargo == "Desenvolvedor Pleno") {
+				setCargo("Desenvolvedor Senior");
+			}
+			else if (cargo == "Desenvolvedor Senior") {
+				setCargo("Especialista em Analista e Desenvolvimento de Sistemas");
+			}
+		}
+		return cargo;
+	}
 	
 	public String getNome() {
 		return nome;
