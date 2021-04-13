@@ -3,7 +3,9 @@ package programadeincentivo;
 import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
@@ -22,20 +24,22 @@ public abstract class Funcionarios {
 	}
 
 	public int avaliar() {
-		String[] habilidades = { "\n1-Responsabilidade Pessoal", "\n2-Mentalidade de Crescimento", "\n3-Orientação ao futuro",
-				"\n4-Persistencia", "\n5-Comunicação", "\n6-Trabalho em equipe", "\n7-Atenção aos Detalhes", "\n8-Proatividade",
-				"\n9-Profissionalismo", "\n10-Precisão Técnica" };
+		String[] habilidades = { "\n1 - RESPONSABILIDADE PESSOAL", "\n2 - MENTALIDADE DE CRESCIMENTO", "\n3 - ORIENTAÇÃO AO FUTURO",
+				"\n4 - PERSISTENCIA", "\n5 - COMUNICAÇÃO", "\n6 - TRABALHO EM EQUIPE", "\n7 - ATENÇÃO AOS DETALHES", "\n8 - PROATIVIDADE",
+				"\n9 - PROFISSIONALISMO", "\n10 - PRECISÃO TÉCNICA" };
 		int op;
 		pontuacao = 0;
 		int x;
 		Scanner leia = new Scanner(System.in);
+		
+		System.out.println("--------------------------   AVALIAÇÃO - PROGRAMA INCENTIVE  ----------------------------");
 
-		System.out.println("Avaliaçao do Funcionário " + getNome());
+		System.out.println("\nColaborador: " + getNome());
+		System.out.println("Para a Habilidade listada, digite a opção desejada: ");
 
 		for (x = 0; x < 10; x++) {
-			System.out.println("Para a Habilidade " + habilidades[x]);
-			System.out.println(
-					"Digite a opção desejada:\n1 - Iniciante\n2 - Em desenvolvimento\n3 - Proficiente\n4 - Avançado");
+			System.out.println( habilidades[x]);
+			System.out.println("(1) Iniciante (2) Em desenvolvimento (3) Proficiente (4) Avançado");
 			op = leia.nextInt();
 
 			if (op == 1) {
@@ -49,50 +53,61 @@ public abstract class Funcionarios {
 			} else {
 				System.out.println("Opção inválida");
 			}
-			System.out.println("\nO pontuação atual: "+pontuacao);
 			System.out.println("                                        ");
 		}
 
 		return pontuacao;
 	}
+	
+	public void cadastroFuncionario(){
+		Scanner scan = new Scanner(System.in);
+		
+		System.out.println("\n---------------------------- CADASTRO DE FUNCIONÁRIO -------------------------------");
+		System.out.println("                                             ");
+		System.out.println("Cargo: "+getCargo());
+		System.out.print("Nome: ");
+		setNome(scan.nextLine());
+		System.out.print("Data de admissão: ");
+		setAdmissao(scan.nextLine());
+		
+	}
 
 	public void ImprimirInfo() {
 		System.out.println("                                                                                       ");
-		System.out.println("***************************************************************************************");
+		System.out.println("************************    DADOS DE FUNCIONÁRIO     **********************************");
 		System.out
-				.println("Dados do funcionário \nNome: " + getNome() + "\nCargo: " + getCargo() + "\nData de admissão: "
+				.println("\nNome: " + getNome() + "\nCargo: " + getCargo() + "\nData de admissão: "
 						+ getAdmissao() + "\nSalário: " + getSalario() + "\nPontuação total: " + pontuacao);
 		System.out.println("                                                                                       ");
-		System.out.println("***************************************************************************************");
 		
 	}
 	public void ImprimirInfoBonificada() {
 		System.out.println("                                                                                       ");
-		System.out.println("*********************************BONIFICAÇÃO*******************************************");
-		System.out.println("Dados do funcionário \nNome: "+getNome()+"\nCargo: "+cargoBonificado()+"\nData de admissão: "+getAdmissao()+
+		System.out.println("*-*-*-*-*-*-*-*-*-*-*-*-*-*-*    BONIFICAÇÃO    -*-*-*-*-*-*-*-*-*-*-*-*-**-*-*-*-*-*-*\n");
+		System.out.println("\nDados do funcionário \nNome: "+getNome()+"\nCargo: "+cargoBonificado()+"\nData de admissão: "+getAdmissao()+
 				"\nSalário: "+salarioBonificado()+"\nPontuação total: "+pontuacao+"\nBonificação: "+bonificacao());
 		System.out.println("                                                                                       ");
-		System.out.println("***************************************************************************************");
+		System.out.println("                                                                                       ");
 	}
 	
 	public String bonificacao() {
 	
 		if (pontuacao>=30 && pontuacao<=33 ) {
-			bonificacao = "Parabens! "+getNome()+" ganhou um aumento salarial de 2%, Kit Home Office e um curso de especialização";
+			bonificacao = "Parabens! "+getNome()+" ganhou: \n- REAJUSTE SALARIAL de 2% \n- Kit Home Office \n- Curso de Especialização";
 		}		
 		else if (pontuacao>=34 && pontuacao<=36 ) {
-			bonificacao = "Parabens! "+getNome()+" ganhou um aumento salarial de 5%, bonificação e um curso de especialização";
+			bonificacao = "Parabens! "+getNome()+" ganhou:\n- REAJUSTE SALARIAL de 5%\n- Bonificação\n- Curso de Especialização";
 			
 		}
 		else if (pontuacao>=37 && pontuacao<=39 ) {
-			bonificacao = "Parabens! "+getNome()+" ganhou um aumento salarial de 7%, jantar exclusivo e uma viagem nacional";
+			bonificacao = "Parabens! "+getNome()+" ganhou:\n- REAJUSTE SALARIAL de 7%\n- Jantar exclusivo\n- Viagem destino nacional";
 				
 		}
 		else if (pontuacao==40 && getTempoTrabalhoMeses()>=6) {
-			bonificacao = "Parabens! "+getNome()+" foi promovido, ganhou um aumento salarial de 10%, jantar exclusivo e um intercambio corporativo";
+			bonificacao = "Parabens! "+getNome()+" foi **PROMOVIDO** e ganhou:\n- REAJUSTE SALARIAL de 10%\n- Jantar exclusivo\n- **INTERCÂMBIO** corporativo";
 		}
 		else if (pontuacao==40) {
-			bonificacao = "Parabens! "+getNome()+" ganhou um aumento salarial de 10%, jantar exclusivo e um intercambio corporativo";
+			bonificacao = "Parabens! "+getNome()+" ganhou:\n- REAJUSTE SALARIAL de 10%\n- Jantar exclusivo\n- **INTERCÂMBIO** corporativo";
 		}
 		else  {
 			bonificacao = "Funcionário "+getNome()+" não atingiu a média de pontuação";		
@@ -113,9 +128,9 @@ public abstract class Funcionarios {
 			
 			this.salario *= 1.05;
 		}
-		else if (pontuacao==40) {
+		else if (pontuacao==40 && getTempoTrabalhoMeses()>=6) {
 	
-			this.salario *= 1.10;
+			this.salario *= 2;
 		}
 		else  {
 			this.salario = salario;				
